@@ -1,0 +1,31 @@
+easy_admin:
+    disabled_actions: ['new']
+    user:
+        name_property_path: username
+    entities:
+        User:
+            display_name: true
+            name_property_path: username
+            class: App\Entity\User
+            label: 'User'
+            password_encoding: { algorithm: 'bcrypt', cost: 12 }
+            list:
+                fields:
+                    # all users will see the first three columns
+                    - username
+                    - enterprises 
+                    - { property: 'max', label: 'Nº empresas max'}
+
+            edit:
+                fields:
+                    # all users will see the first three columns
+                    - username
+                    - { property: 'enterprises', type_options: { by_reference: false } } 
+                    - { property: 'max', label: 'Nº empresas max'}
+            new:
+                fields: 
+                    - username
+                    - {property: 'password', type: 'password'}
+                    - enterprises
+        
+

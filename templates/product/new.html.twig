@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+			
+	<link rel="stylesheet" href="{{ asset('css/input_val.css') }}"/>
+{% endblock %}
+
+{% block title %}Nuevo producto
+{% endblock %}
+
+{% block nav %}
+    {{ include('navbar/shownavbar.html.twig') }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<h1>Crear nuevo producto</h1>
+
+		{{ include('product/_form.html.twig') }}
+
+		<a href="{{ path('product_index', {'idempresa': id_empresa }) }}">Volver al listado</a>
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheet %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('css/invoice.css') }}" />
+    
+{% endblock %}
+
+{% block title %}Nuevo presupuesto{% endblock %}
+
+{% block nav %}
+{{ include('invoice/navbar.html.twig') }}
+{% endblock %} 
+
+{% block body %}  
+    {{ form_start(form) }}
+
+
+    {% include "budget/basebudget.html.twig" %}    
+    
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    {# <a href="{{ path('invoice_index') }}">back to list</a> #}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/budget.js') }}"></script>   
+    {# SETEO LOS CAMPOS FINALES EN READONLY #}
+    <script>
+    var inputSubtotal= document.getElementById('budget_subtotal');
+    inputSubtotal.readOnly = true;
+
+    var inputTAX= document.getElementById('taxRate');
+    inputTAX.readOnly = true;
+
+    var inputtotal= document.getElementById('budget_total');
+    inputtotal.readOnly = true;
+
+    {# CAMBIO EL TAMAÑO DEL CONTRACT #}
+    var inputcontract= document.getElementById('budget_contract');
+    {# inputcontract.style.width = "500px";
+    inputcontract.style.height = "400px"; #}
+    inputcontract.rows="6";
+    inputcontract.cols="80";
+    </script> 
+{% endblock %}

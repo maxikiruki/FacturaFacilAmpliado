@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheet %}
+	{{parent()}}
+	<link rel="stylesheet" href="{{ asset('css/invoice.css') }}"/>
+
+{% endblock %}
+
+{% block title %}Listado de presupuestos
+{% endblock %}
+
+{% block nav %}
+	{{ include('navbar/shownavbar.html.twig') }}
+{% endblock %}
+
+
+{% block body %}
+
+
+			
+
+
+	<div class="container" id="tableArea">
+		<h1>Listado de presupuestos</h1>
+		<table
+			id="dtHorizontalExample" class="table table-striped table-sm" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Nº presupuesto</th>
+					<th>Fecha</th>
+					{# <th>Contrato</th> #}
+					<th>Estado</th>
+					<th>Subtotal</th>
+					<th>Total</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for budget in budgets %}
+					{# {% if budget.visible %} #}
+						<tr>
+							<td>{{ budget.id}}</td>
+							<td>{{ budget.date ? budget.date|date('Y-m-d') : '' }}</td>
+							{# <td>{{ budget.contract }}</td> #}
+							{# <td>{{ budget.status }}</td> #}
+							{% if budget.status == 0 %}
+								<td>PENDIENTE</td>		
+							{% elseif budget.status == 1 %}
+								<td>VISTO</td>
+							{% elseif budget.status == 2 %}
+								<td>ACEPTADO</td>
+							{% elseif budget.status == 3 %}
+								<td>RECHAZADO</td>
+							{% endif %}
+							<td>{{ budget.subtotal }}</td>
+							<td>{{ budget.total }}</td>
+							<td>
+								<a href="{{ path('budget_show',{'id': budget.id, 'psswrd': budget.psswrd}) }}"> VER</a>
+								{% if budget.status ==2 %}
+									 o <a href="{{ path('budget_invoice', {'id': budget.id}) }}"> FACTURAR</a>
+								{% endif %}
+								{# <a href="/budget/budget/{{ budget.id }}/{{ budget.psswrd }}"> GENERAR 2</a> #}
+								{# <a href="{{ path('invoice_show', {'id': budget.id}) }}">show</a> #}
+								{# <a href="{{ path('invoice_edit', {'id': budget.id}) }}">edit</a> #}
+							</td>
+
+						</tr>
+					{# {% endif %} #}
+
+				{# {% else %}
+					<tr>
+						<td colspan="8">No se han encontrado resultados</td>
+					</tr> #}
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{{ path('budget_new', {'idclient': idclient}) }}">CREAR PRESUPUESTO</a>
+	</div>
+
+	
+{% endblock %}

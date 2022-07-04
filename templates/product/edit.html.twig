@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar producto
+{% endblock %}
+
+{% block nav %}
+	{{ include('navbar/shownavbar.html.twig') }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+
+				<h1>Editar producto</h1>
+
+				{{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+
+				{{ include('product/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
